@@ -64,7 +64,6 @@ RUN rm /tmp/chromedriver_linux64.zip
 #
 RUN apt-get install -y -q libxss1 libappindicator1 libindicator7
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-##RUN wget https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_41.0.2272.76-1_amd64.deb -P /tmp
 RUN echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
 RUN apt-get update
 RUN apt-get install -y -q google-chrome-stable=41.0.2272.76-1
