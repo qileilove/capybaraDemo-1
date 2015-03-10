@@ -18,14 +18,32 @@ Capybara.default_wait_time = 10
 Capybara.default_driver = :selenium
 Capybara::Screenshot.prune_strategy = :keep_last_run
 
+#
+# NOTE: Cucumber does not provide an API to override the output directory
+#       for the various foramatters, so we don't use the OUTPUT_DIR env var
+#       as an override like the other environment variables. Instead, we
+#       use it to set Capybara.save_and_open_page_path assuming that the value
+#       of OUTPUT_DIR and the value specified for the --out argument for the
+#       HTML formatter are the same.
+#
 output_dir = ENV["OUTPUT_DIR"]
-if output_dir && output_dir.length > 0
-    if Dir.exists?(output_dir)
-        FileUtils.rm_rf(output_dir)
-    end
-    Capybara.save_and_open_page_path = output_dir + "/screenshots"
-    FileUtils.mkdir_p(Capybara.save_and_open_page_path)
+if output_dir.nil? || output_dir.empty?
+    printf "ERROR: OUTPUT_DIR is not defined; check cucumber.yml"
+    exit 1
 end
+
+if Dir.exists?(output_dir)
+    FileUtils.rm_rf(output_dir)
+end
+Capybara.save_and_open_page_path = output_dir + "/screenshots"
+FileUtils.mkdir_p(Capybara.save_and_open_page_path)
+printf "Using output directory=%s\n", output_dir
+
+timeout_override = ENV["CAPYBARA_TIMEOUT"]
+if timeout_override && timeout_override.length > 0
+    Capybara.default_wait_time = timeout_override.to_i
+end
+printf "Using default_wait_time=%d\n", Capybara.default_wait_time
 
 driver_override = ENV["CAPYBARA_DRIVER"]
 if driver_override && driver_override.length > 0
@@ -40,6 +58,7 @@ if driver_override && driver_override.length > 0
         exit 1
     end
 end
+printf "Using driver=%s\n", Capybara.default_driver
 
 #
 # Register Chrome (Firefox is the selenium default)
