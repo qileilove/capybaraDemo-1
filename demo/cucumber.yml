@@ -1,0 +1,1 @@
+default: OUTPUT_DIR=./output --format pretty --format html --out ./output/features_report.html
