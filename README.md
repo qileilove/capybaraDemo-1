@@ -46,6 +46,13 @@ The output from the tests are written to stdout as the tests execute. Additional
 `demo/output/features_report.html`. If a test case fails, the HTML report will include a screenshot of the browser
 at the point in time when the test case failed.
 
+### Cucumber Command Line Options
+Cucumber command line options can be specified by defining the `CUCUMBER_OPTS` variable on the make command line. 
+For a full list of possible options, specify `--help`
+```
+$ make CUCUMBER_OPTS=--help test
+```
+
 ### Optional Environment variables
 The optional environment variables used to override some of the default behaviors are:
  * **CAPYBARA_DRIVER** - the name of the Capybara web driver to use. Valid values are "selenium" (which uses Firefox), "selenium_chrome", or "poltergeist" (which uses PhantomJS). The default if not specified is "selenium"
@@ -57,7 +64,6 @@ For details of how these variables are used, see [demo/features/support/env.rb](
 
 ## Known Issues
 
- * There is no way to pass command line args to Cucumber for things like tags.
  * The `demo/output` directory and it's contents are owned by root, but should be the user who ran the tests.
  * Phantomjs crashes on click of the Search button - [phantomjs/issues/13055](https://github.com/ariya/phantomjs/issues/13055)
  * For security reasons, the sandboxing capabilities of Chrome on Linux will prevent it from running on SUID filesystems, including those in a Docker container. To workaround that, you can run the docker container with the `--privileged` flag, which is a no-no for Docker containers in general. Alternatively, you __TBD__

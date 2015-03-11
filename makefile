@@ -12,7 +12,7 @@ usage:
 test: testFirefox
 
 testFirefox:
-	docker run --rm -v `pwd`/demo:/capybara -t capybara_demo /capybara/runCucumber.sh
+	$(MAKE) DRIVER_NAME=selenium dockerRun
 
 #
 # Google Chrome is extremely picky about SUID filesystems which creates issues
@@ -26,8 +26,15 @@ testChrome:
 	docker run --rm --privileged=true -v `pwd`/demo:/capybara -e CAPYBARA_DRIVER=selenium_chrome -t capybara_demo /capybara/runCucumber.sh
 
 testPhantomjs:
-	docker run --rm -v `pwd`/demo:/capybara -e CAPYBARA_DRIVER=poltergeist -t capybara_demo /capybara/runCucumber.sh
+	$(MAKE) DRIVER_NAME=poltergeist dockerRun
 
 dockerBuild:
 	docker build -t capybara_demo dockerImage
+
+dockerRun:
+ifdef CAPYBARA_TIMEOUT
+	docker run --rm -v `pwd`/demo:/capybara -e CAPYBARA_DRIVER=$(DRIVER_NAME) -e CAPYBARA_TIMEOUT=$(CAPYBARA_TIMEOUT)-t capybara_demo /capybara/runCucumber.sh $(CUCUMBER_OPTS)
+else
+	docker run --rm -v `pwd`/demo:/capybara -e CAPYBARA_DRIVER=$(DRIVER_NAME) -t capybara_demo /capybara/runCucumber.sh $(CUCUMBER_OPTS)
+endif
 
