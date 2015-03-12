@@ -68,7 +68,7 @@ files written to `demo/output` will have the proper owner/group information.
 
 Other variables set bu `dockerRun.sh` are:
  * **`CAPYBARA_DRIVER`** - the name of the Capybara web driver to use. Valid values are `selenium` (which uses Firefox), `selenium_chrome`, or `poltergeist` (which uses PhantomJS). The default if not specified is "selenium"
- * `CAPYBARA_TIMEOUT` - the timeout, in seconds, that Capybara should wait for a page or element. The default is 10 seconds.
+ * **`CAPYBARA_TIMEOUT`** - the timeout, in seconds, that Capybara should wait for a page or element. The default is 10 seconds.
 
 For details of how these two variables are used, see [demo/features/support/env.rb](demo/features/support/env.rb)
 
