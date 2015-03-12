@@ -2,15 +2,20 @@
 
 This repository has a simple example of running [Capybara](https://github.com/jnicklas/capybara) in a [Docker](www.docker.com) container.
 
-It supports running the tests against Firefox, Chrome, or Poltergeist/Phantomjs. It also includes support for [screenshots](mattheworiordan/capybara-screenshot) of failed tests cases
+The tests may be run against Firefox, Chrome, or Poltergeist/Phantomjs.
+It also includes support for [screenshots](mattheworiordan/capybara-screenshot) of failed tests cases
 
 ## Overview
 
 The docker image `capybara_demo` contains all of the tools and libraries required to run Capybara against Firefox, Chrome or Phantomjs.
-The cucumber/capybara files in the directory `demo` are mounted into the docker container
-under the directory `/capybara` and then the script `runCucmber.sh` is executed from within docker.
-The `runCucumber.sh` script starts Xvfb (which is required for Firefox and Chrome, but not used by Phantomjs) and executes cucumber.
-A report of the test executation is written to `demo/output`.
+
+The directory `demo` is mounted into the docker container under the directory `/capybara`, giving the tools in the container access to
+all of the cucumber/capybara test files defined in `demo`.
+
+The script `demo/runCucmber.sh` is executed from within docker. It handles any runtime setup (such as starting Xvfb if necessary), and
+then executes cucumber.
+
+A report of the test execution is written to `demo/output`.
 
 ## How to run
 
@@ -18,26 +23,28 @@ A report of the test executation is written to `demo/output`.
 
 This step only needs to be performed once on a given machine.
 On the first execution, the build will take several minutes.
-Docker will cache the image locally so that any subsequent attempts will be much faster
+Docker will cache the resulting image locally so that any subsequent attempts will be much faster
 
 ```
-$ make dockerBuild
+$ ./dockerBuild.sh
 ```
 ### Step 2 - Run the test suite against one of the browsers
 
 The Selenium driver for Capybara is the default, and by default it executes tests againts Firefox.
 ```
-$ make test
+$ ./dockerRun.sh
+or
+$ ./dockerRun.sh -d selenium
 ```
 
 To run against Chrome,
 ```
-$ make testChrome
+$ ./dockerRun.sh -d selenium_chrome
 ```
 
 To run against Poltergeist/Phantomjs,
 ```
-$ make testPhantomjs
+$ ./dockerRun.sh -d poltergeist
 ```
 
 ### Step 3 - Review the test results
@@ -47,26 +54,33 @@ The output from the tests are written to stdout as the tests execute. Additional
 at the point in time when the test case failed.
 
 ### Cucumber Command Line Options
-Cucumber command line options can be specified by defining the `CUCUMBER_OPTS` variable on the make command line. 
+Cucumber command line options can be specified by defining the environment variable `CUCUMBER_OPTS` on the make command line.
 For a full list of possible options, specify `--help`
 ```
-$ make CUCUMBER_OPTS=--help test
+$ CUCUMBER_OPTS=--help ./dockerRun.sh
 ```
 
-### Optional Environment variables
-The optional environment variables used to override some of the default behaviors are:
- * **CAPYBARA_DRIVER** - the name of the Capybara web driver to use. Valid values are "selenium" (which uses Firefox), "selenium_chrome", or "poltergeist" (which uses PhantomJS). The default if not specified is "selenium"
- * **CAPYBARA_TIMEOUT** - the timeout, in seconds, that Capybara should wait for a page or element. The default is 10 seconds.
+### Environment variables
+Environment variables are used to pass information into the docker container.
 
-Use the `-e` command line option to `docker run` to pass these values to the Cucumber.
+The variables `CALLER_UID` and `CALLER_GID` capture the current users UID and GID which are used in the container to create a `cuke` user so that
+files written to `demo/output` will have the proper owner/group information.
 
-For details of how these variables are used, see [demo/features/support/env.rb](demo/features/support/env.rb)
+Other variables set bu `dockerRun.sh` are:
+ * **`CAPYBARA_DRIVER`** - the name of the Capybara web driver to use. Valid values are `selenium` (which uses Firefox), `selenium_chrome`, or `poltergeist` (which uses PhantomJS). The default if not specified is "selenium"
+ * `CAPYBARA_TIMEOUT` - the timeout, in seconds, that Capybara should wait for a page or element. The default is 10 seconds.
+
+For details of how these two variables are used, see [demo/features/support/env.rb](demo/features/support/env.rb)
+
+## TODOs
+
+ * Include a failed test case to illustrate error reporting
+ * Illustrate use of tags (reports and running just some)
+ * Illustrate a pending scenario
 
 ## Known Issues
 
- * The `demo/output` directory and it's contents are owned by root, but should be the user who ran the tests.
  * Phantomjs crashes on click of the Search button - [phantomjs/issues/13055](https://github.com/ariya/phantomjs/issues/13055)
- * For security reasons, the sandboxing capabilities of Chrome on Linux will prevent it from running on SUID filesystems, including those in a Docker container. To workaround that, you can run the docker container with the `--privileged` flag, which is a no-no for Docker containers in general. Alternatively, you __TBD__
 
 ## References
 

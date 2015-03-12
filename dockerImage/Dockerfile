@@ -67,7 +67,6 @@ RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo ap
 RUN echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
 RUN apt-get update
 RUN apt-get install -y -q google-chrome-stable=41.0.2272.76-1
-##RUN rm /tmp/google-chrome-stable_41.0.2272.76-1_amd64.deb
 
 #
 # Setup Xvfb - FF and chrome will connect to this DISPLAY
@@ -76,6 +75,14 @@ RUN apt-get install -y -q google-chrome-stable=41.0.2272.76-1
 ENV DISPLAY :99
 ADD xvfb_init /etc/init.d/xvfb
 RUN chmod a+x /etc/init.d/xvfb
+
+#
+# Add the script that sets up a user account to run cucumber. The account has to be setup
+# on each execution so that the uid/gid can be synced with the caller. Otherwise, the files
+# created by cucumber/capybara will not be owned by the right user.
+#
+ADD makeCukeUser.sh /usr/sbin/makeCukeUser.sh
+RUN chmod a+x /usr/sbin/makeCukeUser.sh
 
 #
 # This is the directory that wlll be the mount point for the cucumber files

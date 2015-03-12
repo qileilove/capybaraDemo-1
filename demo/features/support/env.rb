@@ -63,7 +63,12 @@ printf "Using driver=%s\n", Capybara.default_driver
 #
 # Register Chrome (Firefox is the selenium default)
 Capybara.register_driver :selenium_chrome do |app|
-	Capybara::Selenium::Driver.new(app, :browser => :chrome)
+    #
+    # Chrome's sandboxing doesn't work in a docker container because Chrome detects it's on an SID volume
+    # and refuses to start. So you must either run the docker container w/--privileged or run chrome as
+    # a non-root user with sandboxing disabled. The later seems most secure
+    args = %w(--no-sandbox)
+    Capybara::Selenium::Driver.new(app, :browser => :chrome, :args => args)
 end
 
 #

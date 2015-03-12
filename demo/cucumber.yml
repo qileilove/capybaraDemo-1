@@ -1,3 +1,4 @@
 #
-# NOTE the value of --out should start with the value of OUTPUT_DIR
+# NOTE the value of --out should start with the value of OUTPUT_DIR. If not, then screenshots
+#      will be written to different directory when an error occurs
 default: OUTPUT_DIR=./output --format pretty --format html --out ./output/features_report.html
