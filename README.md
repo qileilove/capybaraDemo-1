@@ -12,7 +12,7 @@ The docker image `capybara_demo` contains all of the tools and libraries require
 The directory `demo` is mounted into the docker container under the directory `/capybara`, giving the tools in the container access to
 all of the cucumber/capybara test files defined in `demo`.
 
-The script `demo/runCucmber.sh` is executed from within docker. It handles any runtime setup (such as starting Xvfb if necessary), and
+The script `runCucmber.sh` is executed from within docker. It handles any runtime setup (such as starting Xvfb if necessary), and
 then executes cucumber.
 
 A report of the test execution is written to `demo/output`.

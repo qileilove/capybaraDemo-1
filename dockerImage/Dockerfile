@@ -85,6 +85,12 @@ ADD makeCukeUser.sh /usr/sbin/makeCukeUser.sh
 RUN chmod a+x /usr/sbin/makeCukeUser.sh
 
 #
+# Add the script used to run cucumber.
+#
+ADD runCucumber.sh /usr/sbin/runCucumber.sh
+RUN chmod a+x /usr/sbin/runCucumber.sh
+
+#
 # This is the directory that wlll be the mount point for the cucumber files
 #
 WORKDIR /capybara

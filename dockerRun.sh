@@ -58,7 +58,7 @@ if [ "$debug" == true ]; then
 	INTERACTIVE_OPTION="-i"
 	CMD="bash"
 else
-	CMD="/capybara/runCucumber.sh ${CUCUMBER_OPTS}"
+	CMD="runCucumber.sh ${CUCUMBER_OPTS}"
 fi
 
 docker run --rm --name capybara_demo \
