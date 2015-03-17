@@ -8,3 +8,9 @@ Feature: Github Search to explore Capybara
     When I fill in "q" with "zenoss/zep"
       And I click "Search"
     Then I should see "zenoss-zep"
+
+  Scenario: Use Google search page
+    Given PENDING I am on the Google search page
+    When I fill in "q" with "zenoss/zep"
+      And I click "Search"
+    Then I should see "zenoss-zep"

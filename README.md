@@ -76,7 +76,6 @@ For details of how these two variables are used, see [demo/features/support/env.
 
  * Include a failed test case to illustrate error reporting
  * Illustrate use of tags (reports and running just some)
- * Illustrate a pending scenario
 
 ## Known Issues
 
