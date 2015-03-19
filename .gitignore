@@ -1,1 +1,4 @@
 demo/output
+dockerImage/reporter.jar
+reporter/dependency-reduced-pom.xml
+reporter/target

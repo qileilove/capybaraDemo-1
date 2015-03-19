@@ -91,6 +91,13 @@ ADD runCucumber.sh /usr/sbin/runCucumber.sh
 RUN chmod a+x /usr/sbin/runCucumber.sh
 
 #
+# Add the Java app that generates a nice HTML report
+#
+RUN apt-get install -y -q openjdk-7-jre-headless
+RUN mkdir -p /usr/share/reporter
+ADD reporter.jar /usr/share/reporter/reporter.jar
+
+#
 # This is the directory that wlll be the mount point for the cucumber files
 #
 WORKDIR /capybara

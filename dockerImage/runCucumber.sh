@@ -13,4 +13,8 @@ fi
 #
 makeCukeUser.sh
 
-HOME=/home/cuke su cuke --preserve-environment -c "cd /capybara; cucumber $*"
+#
+# Run cucumber with the default profile (which generates a JSON report) and convert the JSON report to
+# a nice HTML format
+#
+HOME=/home/cuke su cuke --preserve-environment -c "cd /capybara; cucumber $*; java -jar /usr/share/reporter/reporter.jar ./output ./output/report.json"
