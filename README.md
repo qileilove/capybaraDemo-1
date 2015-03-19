@@ -90,7 +90,7 @@ For details of how these two variables are used, see [demo/features/support/env.
 ## TODOs
 
  * Illustrate passing current host name and/or IP into the docker container
- * Add support for Page Object Model
+ * Illustrate support for Page Object Model with [Site Prism](https://github.com/natritmeyer/site_prism)
  * Include a failed test case to illustrate error reporting
  * Illustrate use of tags (reports and running just some)
 
