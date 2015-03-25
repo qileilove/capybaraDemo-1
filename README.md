@@ -100,7 +100,7 @@ $ CUCUMBER_OPTS=--help ./dockerRun.sh
 
 ## TODOs
 
- * Illustrate passing current host name and/or IP into the docker container
+ * Add example of REST validation
  * Illustrate support for Page Object Model with [Site Prism](https://github.com/natritmeyer/site_prism)
  * Include a failed test case to illustrate error reporting
  * Illustrate use of tags (reports and running just some)

@@ -18,6 +18,14 @@ Capybara.default_wait_time = 10
 Capybara.default_driver = :selenium
 Capybara::Screenshot.prune_strategy = :keep_last_run
 
+Capybara.app_host = ENV["APPLICATION_URL"]
+if Capybara.app_host.empty?
+    #
+    # replace with our own default application as necessary
+    Capybara.app_host = "http://github.com"
+end
+printf "Using app_host=%s\n", Capybara.app_host
+
 #
 # NOTE: Cucumber does not provide an API to override the output directory
 #       for the various foramatters, so we don't use the OUTPUT_DIR env var

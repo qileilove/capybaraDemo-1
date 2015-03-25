@@ -17,37 +17,48 @@ DRIVER_NAME=selenium
 TIMEOUT=10
 
 while (( "$#" )); do
-	if [ "$1" == "-d" ]; then
-		DRIVER_NAME="${2}"
-		shift 2
-	elif [ "$1" == "-t" ]; then
-		TIMEOUT="${2}"
-		shift 2
-	elif [ "$1" == "--root" ]; then
-		runAsRoot=true
-		shift 1
-	elif [ "$1" == "-i" ]; then
-		debug=true
-		shift 1
-	else
-		if [ "$1" != "-h" ]; then
-			echo "ERROR: invalid argument '$1'"
-		fi
-		echo "USAGE: dockerRun.sh [-d driverName] [-t timeout] [-D] [-h]"
-		echo ""
-		echo "where"
-		echo "    -d driverName   identifies the Capybara driver to use"
-		echo "                    (e.g. selenium, selenium_chrome or poltergeist)"
-		echo "    -t timeout      identifies the Capybara timeout to use (in seconds)"
-		echo "    --root          run the tests as root in the docker container"
-		echo "    -i              interactive mode. Starts a bash shell with all of the same"
-		echo "                    env vars but doesn't run anything"
-		echo "    -h              print this usage statement and exit"
-		exit 1
-	fi
+    if [ "$1" == "-d" ]; then
+        DRIVER_NAME="${2}"
+        shift 2
+    elif [ "$1" == "-t" ]; then
+        TIMEOUT="${2}"
+        shift 2
+    elif [ "$1" == "--root" ]; then
+        runAsRoot=true
+        shift 1
+    elif [ "$1" == "-i" ]; then
+        debug=true
+        shift 1
+    else
+        if [ "$1" != "-h" ]; then
+            echo "ERROR: invalid argument '$1'"
+        fi
+        echo "USAGE: dockerRun.sh [-d driverName] [-t timeout] [-D] [-h]"
+        echo ""
+        echo "where"
+        echo "    -d driverName   identifies the Capybara driver to use"
+        echo "                    (e.g. selenium, selenium_chrome or poltergeist)"
+        echo "    -t timeout      identifies the Capybara timeout to use (in seconds)"
+        echo "    --root          run the tests as root in the docker container"
+        echo "    -i              interactive mode. Starts a bash shell with all of the same"
+        echo "                    env vars but doesn't run anything"
+        echo "    -h              print this usage statement and exit"
+        exit 1
+    fi
 
 done
 
+#
+# The features/steps in this example assumes github
+if [ -z "${APPLICATION_URL-}" ]; then
+    APPLICATION_URL="http://github.com"
+fi
+
+#
+# Get the current UID and GID. These are passed into the container for use in
+# creating a container-local user account so ownership of files created in the
+# container will match the user in the host OS.
+#
 CALLER_UID=`id -u`
 CALLER_GID=`id -g`
 
@@ -60,12 +71,12 @@ if [ -z "${CAPYBARA_TIMEOUT-}" ]; then
 fi
 
 if [ "$debug" == true ]; then
-	INTERACTIVE_OPTION="-i"
-	CMD="bash"
+    INTERACTIVE_OPTION="-i"
+    CMD="bash"
 elif [ "$runAsRoot" == true ]; then
-	CMD="runCucumber.sh --root ${CUCUMBER_OPTS}"
+    CMD="runCucumber.sh --root ${CUCUMBER_OPTS}"
 else
-	CMD="runCucumber.sh ${CUCUMBER_OPTS}"
+    CMD="runCucumber.sh ${CUCUMBER_OPTS}"
 fi
 
 docker run --rm --name capybara_demo \
@@ -74,6 +85,7 @@ docker run --rm --name capybara_demo \
     -e CALLER_GID=${CALLER_GID} \
     -e CAPYBARA_DRIVER=${DRIVER_NAME} \
     -e CAPYBARA_TIMEOUT=${TIMEOUT} \
+    -e APPLICATION_URL=${APPLICATION_URL} \
     ${INTERACTIVE_OPTION} \
     -t capybara_demo \
     ${CMD}
