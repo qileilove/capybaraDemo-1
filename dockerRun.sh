@@ -26,7 +26,7 @@ while (( "$#" )); do
 	elif [ "$1" == "--root" ]; then
 		runAsRoot=true
 		shift 1
-	elif [ "$1" == "--debug" ]; then
+	elif [ "$1" == "-i" ]; then
 		debug=true
 		shift 1
 	else
@@ -40,7 +40,7 @@ while (( "$#" )); do
 		echo "                    (e.g. selenium, selenium_chrome or poltergeist)"
 		echo "    -t timeout      identifies the Capybara timeout to use (in seconds)"
 		echo "    --root          run the tests as root in the docker container"
-		echo "    --debug         debug mode. Starts a bash shell with all of the same"
+		echo "    -i              interactive mode. Starts a bash shell with all of the same"
 		echo "                    env vars but doesn't run anything"
 		echo "    -h              print this usage statement and exit"
 		exit 1

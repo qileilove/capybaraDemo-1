@@ -67,6 +67,8 @@ To run against Poltergeist/Phantomjs,
 $ ./dockerRun.sh -d poltergeist
 ```
 
+For a full description of the command line options, run `./dockerRun.sh -h`
+
 ### Step 4 - Review the test results
 
 The output from the tests are written to stdout as the tests execute. Additionally, an HTML report is written to
@@ -82,15 +84,15 @@ Environment variables are used to pass information into the docker container.
 The variables `CALLER_UID` and `CALLER_GID` capture the current users UID and GID which are used in the container to create a `cuke` user so that
 files written to `demo/output` will have the proper owner/group information (for OSX, see Known Issues).
 
-Other variables set bu `dockerRun.sh` are:
+Other variables set by `dockerRun.sh` are:
 
- * **`CAPYBARA_DRIVER`** - the name of the Capybara web driver to use. Valid values are `selenium` (which uses Firefox), `selenium_chrome`, or `poltergeist` (which uses PhantomJS). The default if not specified is "selenium"
- * **`CAPYBARA_TIMEOUT`** - the timeout, in seconds, that Capybara should wait for a page or element. The default is 10 seconds.
+ * **`CAPYBARA_DRIVER`** - the name of the Capybara web driver to use. Valid values are `selenium` (which uses Firefox), `selenium_chrome`, or `poltergeist` (which uses PhantomJS). The default if not specified is "selenium". You can set this variable with the `-d` command line option for `dockerRun.sh`.
+ * **`CAPYBARA_TIMEOUT`** - the timeout, in seconds, that Capybara should wait for a page or element. The default is 10 seconds. You can set this variable with the `-t` command line option for `dockerRun.sh`.
  * **`CUCUMBER_OPTS`** - any of the standard command line options for Cucumber.
 
 For details of how these variables are used, see [demo/features/support/env.rb](demo/features/support/env.rb)
 
-For a full list of possible options for Cucumber itself, specify `--help`
+For a full list of possible options for Cucumber itself, pass the `--help` option to Cucumber like this:
 
 ```
 $ CUCUMBER_OPTS=--help ./dockerRun.sh
