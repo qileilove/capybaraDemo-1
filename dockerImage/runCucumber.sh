@@ -27,5 +27,5 @@ else
 	# Run cucumber with the default profile (which generates a JSON report) and convert the JSON report to
 	# a nice HTML format
 	#
-	HOME=/home/cuke su cuke --preserve-environment -c ${CUCUMBER_CMD}
+	HOME=/home/cuke su cuke --preserve-environment -c "${CUCUMBER_CMD}"
 fi
