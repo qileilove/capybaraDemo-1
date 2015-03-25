@@ -12,6 +12,7 @@
 # Set defaults
 #
 debug=false
+runAsRoot=false
 DRIVER_NAME=selenium
 TIMEOUT=10
 
@@ -22,7 +23,10 @@ while (( "$#" )); do
 	elif [ "$1" == "-t" ]; then
 		TIMEOUT="${2}"
 		shift 2
-	elif [ "$1" == "-D" ]; then
+	elif [ "$1" == "--root" ]; then
+		runAsRoot=true
+		shift 1
+	elif [ "$1" == "--debug" ]; then
 		debug=true
 		shift 1
 	else
@@ -35,7 +39,8 @@ while (( "$#" )); do
 		echo "    -d driverName   identifies the Capybara driver to use"
 		echo "                    (e.g. selenium, selenium_chrome or poltergeist)"
 		echo "    -t timeout      identifies the Capybara timeout to use (in seconds)"
-		echo "    -D              debug mode. Starts a bash shell with all of the same"
+		echo "    --root          run the tests as root in the docker container"
+		echo "    --debug         debug mode. Starts a bash shell with all of the same"
 		echo "                    env vars but doesn't run anything"
 		echo "    -h              print this usage statement and exit"
 		exit 1
@@ -57,12 +62,14 @@ fi
 if [ "$debug" == true ]; then
 	INTERACTIVE_OPTION="-i"
 	CMD="bash"
+elif [ "$runAsRoot" == true ]; then
+	CMD="runCucumber.sh --root ${CUCUMBER_OPTS}"
 else
 	CMD="runCucumber.sh ${CUCUMBER_OPTS}"
 fi
 
 docker run --rm --name capybara_demo \
-    -v `pwd`/demo:/capybara \
+    -v `pwd`/demo:/capybara:rw \
     -e CALLER_UID=${CALLER_UID} \
     -e CALLER_GID=${CALLER_GID} \
     -e CAPYBARA_DRIVER=${DRIVER_NAME} \

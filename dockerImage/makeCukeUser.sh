@@ -24,7 +24,7 @@ fi
 #
 # create a user and group inside the container which have the same uid/gid as
 # the user outside of the container
-groupadd -g "$CALLER_GID" -r "$USERGROUP"
+groupadd -o -g "$CALLER_GID" -r "$USERGROUP"
 mkdir -p "$USERHOME"
-useradd -u "$CALLER_UID" -r -g "$USERGROUP" -d "$USERHOME" -s /bin/bash "$USERNAME"
+useradd -o -u "$CALLER_UID" -r -g "$USERGROUP" -d "$USERHOME" -s /bin/bash "$USERNAME"
 chown "$USERNAME":"$USERGROUP" "$USERHOME"

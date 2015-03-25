@@ -44,7 +44,10 @@ RUN rm -rf /usr/local/share/phantomjs-1.9.7-linux-x86_64.tar.bz2
 # Note that the selenium driver doesn't work with all FF versions, so
 # if you use a different version of FF, you might have to upgrade selenium or vice-versa
 #
-RUN apt-get install -y -q firefox=36.0+build2-0ubuntu0.14.04.4
+RUN wget https://download-installer.cdn.mozilla.net/pub/firefox/releases/36.0/linux-x86_64/en-US/firefox-36.0.tar.bz2 -P /usr/local/share
+RUN cd /usr/local/share && tar xvjf firefox-36.0.tar.bz2
+RUN ln -fs /usr/local/share/firefox/firefox /usr/bin/firefox
+RUN rm -rf /usr/local/share/firefox-36.0.tar.bz2
 
 #
 # Install chromedriver that selenium needs to work with chrome
@@ -66,7 +69,9 @@ RUN apt-get install -y -q libxss1 libappindicator1 libindicator7
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 RUN echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
 RUN apt-get update
-RUN apt-get install -y -q google-chrome-stable=41.0.2272.76-1
+#
+# Expected version is 41.0.2272.76-1, but specifying on the command line doesn't always work :-(
+RUN apt-get install -y -q --force-yes google-chrome-stable
 
 #
 # Setup Xvfb - FF and chrome will connect to this DISPLAY
