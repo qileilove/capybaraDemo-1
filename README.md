@@ -137,7 +137,7 @@ $ CUCUMBER_OPTS='--tags @search' ./dockerRun.sh -u <yourGithubID> -p <yourGitHub
 ```
 
 ### Looking at a failed test case
-This demo captures screenshots of failed test steps. If you haven't seen a failed test case already, run the tests wiht an invalid userid and/or password.  When you do, you should see something like this in th e command line output.
+This demo captures screenshots for failed test steps. If you have not seen a failed test case already, run the tests with an invalid userid and/or password.  When you do, you should see something like this in the command line output.
 
 ```
  Scenario: Successful login                                   # features/login.feature:4
@@ -154,7 +154,7 @@ This demo captures screenshots of failed test steps. If you haven't seen a faile
     HTML screenshot: ./output/screenshots/screenshot_2015-03-27-11-46-31.958.html
     Image screenshot: ./output/screenshots/screenshot_2015-03-27-11-46-31.958.png
 ```
-If you open `demo/output/feature-overview.html` with browser and drill into the details for the login feature, you will the equivalent output in nicely formatted table. Look for a "Screenshot" link below that table. Clicking on that link should open an image captured at the time of the failed test step.
+If you open `demo/output/feature-overview.html` with a browser and drill into the details for the login feature, you will see the equivalent output in nicely formatted table. Look for a "Screenshot" link below the error report for the failed step. Clicking on that link should display an image captured at the time of the failure.
 
 ## TODOs
 
