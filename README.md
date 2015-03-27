@@ -7,20 +7,20 @@ It also includes support for [screenshots](mattheworiordan/capybara-screenshot) 
 
 #Table of Contents
 
-  - [Overview](#)
-  - [How to run](#)
-    - [Step 1 - Build the reporter jar](#)
-    - [Step 2 - Build the docker image](#)
-    - [Step 3 - Run the test suite against one of the browsers](#)
-    - [Step 4 - Review the test results](#)
-    - [Cucumber Command Line Options](#)
-    - [Environment variables](#)
-  - [Examples](#)
-    - [Running a subset of tests](#)
-    - [Looking at a failed test case](#)
-  - [TODOs](#)
-  - [Known Issues](#)
-  - [References](#)
+  - [Overview](#overview)
+  - [How to run](#how-to-run)
+    - [Step 1 - Build the reporter jar](#build-the-reporter-jar)
+    - [Step 2 - Build the docker image](#build-the-docker-image)
+    - [Step 3 - Run the test suite](#run-the-test-suite)
+    - [Step 4 - Review the test results](#review-the-test-results)
+    - [Cucumber Command Line Options](#cucumber-command-line-options)
+    - [Environment variables](#environment-variables)
+  - [Examples](#examples)
+    - [Running a subset of tests](#running-a-subset-of-tests)
+    - [Looking at a failed test case](#looking-at-a-failed-test-case)
+  - [TODOs](#todos)
+  - [Known Issues](#known-issues)
+  - [References](#references)
 
 ## Overview
 
@@ -67,9 +67,11 @@ Docker will cache the resulting image locally so that any subsequent attempts wi
 ```
 $ ./dockerBuild.sh
 ```
-### Step 3 - Run the test suite against one of the browsers
+### Step 3 - Run the test suite
 
+Capybara uses different 'drivers' to interface with a web browser.
 The Selenium driver for Capybara is the default, and by default it executes tests againts Firefox.
+The test suite can be run against any one of several browsers by selecting differnet drivers.
 
 ```
 $ ./dockerRun.sh -u <yourGithubID> -p <yourGitHubPassword>
