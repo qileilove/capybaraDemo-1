@@ -125,7 +125,7 @@ $ CUCUMBER_OPTS=--help ./dockerRun.sh
 
 ## Examples
 ### Running a subset of tests
-Cucumber supports a feature called tags which can be used in run a subset of tests.  A full explanation of using tags is beyond the scope of this document; see the Cucumber []documentation](https://github.com/cucumber/cucumber/wiki/Tags) for a full description.
+Cucumber supports a feature called tags which can be used in run a subset of tests.  A full explanation of using tags is beyond the scope of this document; see the Cucumber [documentation](https://github.com/cucumber/cucumber/wiki/Tags) for a full description.
 
 For this demo, the two Features have been tagged, so you can run just one of them at a time
 
@@ -152,7 +152,7 @@ This demo captures screenshots of failed test steps. If you haven't seen a faile
     HTML screenshot: ./output/screenshots/screenshot_2015-03-27-11-46-31.958.html
     Image screenshot: ./output/screenshots/screenshot_2015-03-27-11-46-31.958.png
 ```
-
+If you open `demo/output/feature-overview.html` with browser and drill into the details for the login feature, you will the equivalent output in nicely formatted table. Look for a "Screenshot" link below that table. Clicking on that link should open an image captured at the time of the failed test step.
 
 ## TODOs
 
