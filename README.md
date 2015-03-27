@@ -5,6 +5,23 @@ This repository has a simple example of running [Capybara](https://github.com/jn
 The tests may be run against Firefox, Chrome, or Poltergeist/Phantomjs.
 It also includes support for [screenshots](mattheworiordan/capybara-screenshot) of failed tests cases
 
+#Table of Contents
+
+  - [Overview](#)
+  - [How to run](#)
+    - [Step 1 - Build the reporter jar](#)
+    - [Step 2 - Build the docker image](#)
+    - [Step 3 - Run the test suite against one of the browsers](#)
+    - [Step 4 - Review the test results](#)
+    - [Cucumber Command Line Options](#)
+    - [Environment variables](#)
+  - [Examples](#)
+    - [Running a subset of tests](#)
+    - [Looking at a failed test case](#)
+  - [TODOs](#)
+  - [Known Issues](#)
+  - [References](#)
+
 ## Overview
 
 The docker image `capybara_demo` contains all of the tools and libraries required to run Capybara against Firefox, Chrome or Phantomjs.
