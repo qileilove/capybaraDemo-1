@@ -1,5 +1,5 @@
 When(/^I am on the login page$/) do
-    visit applicationURL("login")
+    visitLoginPage()
 end
 
 When(/^I fill in the user id field with "(.*?)"$/) do |userid|
@@ -7,7 +7,7 @@ When(/^I fill in the user id field with "(.*?)"$/) do |userid|
 end
 
 When(/^I fill in the user id field with the default user id$/) do
-    find("#login_field").set(applicationUserID())
+    fillInDefaultUserID()
 end
 
 When(/^I fill in the password field with "(.*?)"$/) do |password|
@@ -15,7 +15,7 @@ When(/^I fill in the password field with "(.*?)"$/) do |password|
 end
 
 When(/^I fill in the password field with the default password$/) do
-    find("#password").set(applicationPassword())
+    fillInDefaultPassword()
 end
 
 #
@@ -26,5 +26,21 @@ end
 #    when-I-click step.
 #
 When /^I click the sign-in button$/ do
+    clickSignInButton()
+end
+
+def visitLoginPage()
+    visit applicationURL("login")
+end
+
+def fillInDefaultUserID()
+    find("#login_field").set(applicationUserID())
+end
+
+def fillInDefaultPassword()
+    find("#password").set(applicationPassword())
+end
+
+def clickSignInButton()
   find(:css, "[name='commit']").click
 end

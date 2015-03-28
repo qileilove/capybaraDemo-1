@@ -1,7 +1,7 @@
 @search
 Feature: Github Search to explore Capybara
   In order to explore capybara functionality
-  As a capybara user
+  As a github user
   I want to see the if it works on the github search page
 
   Scenario: Use search page

@@ -1,5 +1,8 @@
 @login
 Feature: User login
+  In order to explore capybara functionality
+  As a github user
+  I want to see the if it login works
 
   Scenario: Successful login
     When I am on the login page

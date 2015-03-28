@@ -18,6 +18,7 @@ It also includes support for [screenshots](mattheworiordan/capybara-screenshot) 
   - [Examples](#examples)
     - [Running a subset of tests](#running-a-subset-of-tests)
     - [Looking at a failed test case](#looking-at-a-failed-test-case)
+    - [Tagging conventions](#tagging-conventions)
   - [TODOs](#todos)
   - [Known Issues](#known-issues)
   - [References](#references)
@@ -156,9 +157,27 @@ This demo captures screenshots for failed test steps. If you have not seen a fai
 ```
 If you open `demo/output/feature-overview.html` with a browser and drill into the details for the login feature, you will see the equivalent output in nicely formatted table. Look for a "Screenshot" link below the error report for the failed step. Clicking on that link should display an image captured at the time of the failure.
 
+### Tagging conventions
+Cucumber offers a powerful tagging feature that can be used to control which features and/or scenarios are run, as well as enabling custom 'hooks' to run specific blocks of code at different points
+
+This demo project defines the following tags:
+
+ * feature tags - There is a unique tag on each Feature to allow running single features at a time or in combination. The valid values are `@login`, `@search` and `@profile`
+ * login hook - The tag `@login-required` illustrates how to use hook tags to automatically execute some block of code before/after the associated feature/step. In this case, the `@login-required` tag will login the user before each feature/step decorated with the tag (remember that each Scenario executes as a new browser session).
+
+ To specify one of these tags, define `--tags tagName` in CUCUMBER_OPTS. For instance the following command will run just the tests for the profile feature:
+
+ ```
+$ CUCUMBER_OPTS='--tags @profile' ./dockerRun.sh -u yourName@something.com -p yourPasswordHere`
+ ```
+
+For information of these Cucumber feature, see:
+
+ * [Tags](https://github.com/cucumber/cucumber/wiki/Tags)
+ * [Hooks](https://github.com/cucumber/cucumber/wiki/Hooks)
+
 ## TODOs
 
- * Add @loginRequired hookd
  * Illustrate support for Page Object Model with [Site Prism](https://github.com/natritmeyer/site_prism)
  * Add example of REST validation
 
