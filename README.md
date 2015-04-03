@@ -184,6 +184,7 @@ For information of these Cucumber feature, see:
 ## Known Issues
 
  * Phantomjs crashes on click of the Search button - [phantomjs/issues/13055](https://github.com/ariya/phantomjs/issues/13055)
+ * On Maco OSX with [boot2docker](http://boot2docker.io/), if you have problems reaching archive.ubuntu.com while trying to run `dockerBuild.sh`, refer to the workaround [here](http://stackoverflow.com/questions/26424338/docker-daemon-config-file-on-boot2docker).
  * On Mac OSX with [boot2docker](http://boot2docker.io/), you must use the `--root` option for `dockerRun.sh` and
  boot2docker will automagically map the root user of the docker container to the current user of the host OS. Without the `--root` option, you will encounter permission problems trying to write files into the `demo/output` directory.
 
