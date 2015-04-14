@@ -20,6 +20,7 @@ RUN gem install capybara-screenshot -v 1.0.5
 RUN gem install poltergeist -v 1.6.0
 RUN gem install rspec -v 3.2.0
 RUN gem install selenium-webdriver -v 2.45.0
+RUN gem install site_prism -v 2.6
 
 #
 # Install the xvfb for firefox and chrome so they can run on a headless system
@@ -65,13 +66,12 @@ RUN rm /tmp/chromedriver_linux64.zip
 # Public Key info for safe download: http://www.google.com/linuxrepositories/
 # Info about differnet Chrome versions: http://www.ubuntuupdates.org/package/google_chrome/stable/main/base/google-chrome-stable
 #
-RUN apt-get install -y -q libxss1 libappindicator1 libindicator7
+RUN apt-get update -qq && apt-get install -y -q libxss1 libappindicator1 libindicator7
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 RUN echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
-RUN apt-get update
 #
 # Expected version is 41.0.2272.76-1, but specifying on the command line doesn't always work :-(
-RUN apt-get install -y -q --force-yes google-chrome-stable
+RUN apt-get update -qq && apt-get install -y -q --force-yes google-chrome-stable
 
 #
 # Setup Xvfb - FF and chrome will connect to this DISPLAY
@@ -98,7 +98,7 @@ RUN chmod a+x /usr/sbin/runCucumber.sh
 #
 # Add the Java app that generates a nice HTML report
 #
-RUN apt-get install -y -q openjdk-7-jre-headless
+RUN apt-get update -qq && apt-get install -y -q openjdk-7-jre-headless
 RUN mkdir -p /usr/share/reporter
 ADD reporter.jar /usr/share/reporter/reporter.jar
 

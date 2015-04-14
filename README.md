@@ -19,6 +19,7 @@ It also includes support for [screenshots](mattheworiordan/capybara-screenshot) 
     - [Running a subset of tests](#running-a-subset-of-tests)
     - [Looking at a failed test case](#looking-at-a-failed-test-case)
     - [Tagging conventions](#tagging-conventions)
+    - [Page Object Model](#page-object-model)
   - [TODOs](#todos)
   - [Known Issues](#known-issues)
   - [References](#references)
@@ -176,9 +177,21 @@ For information of these Cucumber feature, see:
  * [Tags](https://github.com/cucumber/cucumber/wiki/Tags)
  * [Hooks](https://github.com/cucumber/cucumber/wiki/Hooks)
 
+### Page Object Model
+Cucmber and Capybara offer huge advantages in terms of being able to write tests using a simple, expressive DSL that describes how to interact with your application's UI.
+However, as your application and your tests grow, you can easily run into situations where implementation details about a particular page or reusable element are either 'leaking' into Step statements explicitly, or they are constantly repeated across step definitions. For instances, things like the IDs or CSS/Xpath expressions used to identify specific elements on a page can end up being repeated over and over again. When the actual page definition is changed by a developer, then you have to make the same refactor across multiple places in your tests.
+
+A Page Object Model is a DSL for describing for the page itself. Think of it as a secondary DSL "below" the DSL expresssed in the test features. The Page Object Model should encapsulate all of the implementation detail like DOM identifiers, CSS/xpath matching expressions, etc.
+
+This demo has a very simple example for using a Page Object Model. I choose [Site Prism](http://www.sitepoint.com/testing-page-objects-siteprism/) to implement a Page Object Model for just the github login page.  The login page  is defined in [demo/features/pages/login.rb](demo/features/pages/login.rb), and it is used in [demo/features/steps/login_steps.rb](demo/features/steps/login_steps.rb).
+
+For more discussion of page object model, see
+
+ * [Testing Page Objects with SitePrism](http://www.sitepoint.com/testing-page-objects-siteprism/)
+ * [Keeping It Dry With Page Objects](http://techblog.constantcontact.com/software-development/keeping-it-dry-with-page-objects/)
+
 ## TODOs
 
- * Illustrate support for Page Object Model with [Site Prism](https://github.com/natritmeyer/site_prism)
  * Add example of REST validation
 
 ## Known Issues
@@ -193,6 +206,7 @@ For information of these Cucumber feature, see:
  * [Cucumber - A tool for BDD testing](https://github.com/cucumber/cucumber)
  * [Capybara - An Acceptance test framework for web applications](https://github.com/jnicklas/capybara)
  * [Capybara cheat sheet](https://gist.github.com/zhengjia/428105)
+ * [Site Prism - A Page Object Model DSL for Capybara](https://github.com/natritmeyer/site_prism)
  * [How to install PhantomJS on Ubuntu](https://gist.github.com/julionc/7476620)
  * [Notes on setting up Xvfb for docker](https://github.com/keyvanfatehi/docker-chrome-xvfb)
  * [How to install Chromedriver on Ubuntu](https://devblog.supportbee.com/2014/10/27/setting-up-cucumber-to-run-with-Chrome-on-Linux/)
