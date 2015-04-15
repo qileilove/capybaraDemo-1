@@ -183,7 +183,7 @@ However, as your application and your tests grow, you can easily run into situat
 
 A Page Object Model is a DSL for describing for the page itself. Think of it as a secondary DSL "below" the DSL expresssed in the test features. The Page Object Model should encapsulate all of the implementation detail like DOM identifiers, CSS/xpath matching expressions, etc.
 
-This demo has a very simple example for using a Page Object Model. I choose [Site Prism](http://www.sitepoint.com/testing-page-objects-siteprism/) to implement a Page Object Model for just the github login page.  The login page  is defined in [demo/features/pages/login.rb](demo/features/pages/login.rb), and it is used in [demo/features/steps/login_steps.rb](demo/features/steps/login_steps.rb).
+This demo has a very simple example for using a Page Object Model. I choose [Site Prism](https://github.com/natritmeyer/site_prism) to implement a Page Object Model for just the github login page.  The login page  is defined in [demo/features/pages/login.rb](demo/features/pages/login.rb), and it is used in [demo/features/steps/login_steps.rb](demo/features/steps/login_steps.rb).
 
 For more discussion of page object model, see
 
