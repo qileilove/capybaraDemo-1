@@ -7,12 +7,12 @@ RUN	apt-get update -qq && apt-get install -y -q build-essential wget curl unzip 
 #
 # Install native prerequisites for the ruby gems we need (e.g.nokogiri)
 #
-RUN apt-get install -y -q zlib1g-dev=1:1.2.8.dfsg-1ubuntu1 libxml2-dev=2.9.1+dfsg1-3ubuntu4.4 libxml2 libxslt1-dev
+RUN apt-get update -qq && apt-get install -y -q zlib1g-dev=1:1.2.8.dfsg-1ubuntu1 libxml2-dev=2.9.1+dfsg1-3ubuntu4.4 libxml2 libxslt1-dev
 
 #
 # Install Ruby, Cucumber, Capybara and the other gems we need
 #
-RUN apt-get install -y -q ruby-full=1:1.9.3.4
+RUN apt-get update -qq && apt-get install -y -q ruby-full=1:1.9.3.4
 RUN gem install cucumber -v 1.3.19
 RUN gem install nokogiri -v 1.6.6.2
 RUN gem install capybara -v 2.4.4
@@ -25,14 +25,14 @@ RUN gem install site_prism -v 2.6
 #
 # Install the xvfb for firefox and chrome so they can run on a headless system
 #
-RUN apt-get install -y -q xvfb
+RUN apt-get update -qq && apt-get install -y -q xvfb
 
 #
 # Install phantomjs (from https://gist.github.com/julionc/7476620)
 #
-RUN apt-get install -y -q build-essential chrpath libssl-dev libxft-dev
-RUN apt-get install -y -q libfreetype6 libfreetype6-dev
-RUN apt-get install -y -q libfontconfig1 libfontconfig1-dev
+RUN apt-get update -qq && apt-get install -y -q build-essential chrpath libssl-dev libxft-dev
+RUN apt-get update -qq && apt-get install -y -q libfreetype6 libfreetype6-dev
+RUN apt-get update -qq && apt-get install -y -q libfontconfig1 libfontconfig1-dev
 RUN wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.7-linux-x86_64.tar.bz2 -P /usr/local/share
 RUN cd /usr/local/share && tar xvjf phantomjs-1.9.7-linux-x86_64.tar.bz2
 RUN ln -sf /usr/local/share/phantomjs-1.9.7-linux-x86_64/bin/phantomjs /usr/local/share/phantomjs
