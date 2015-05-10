@@ -97,6 +97,7 @@ fi
 
 docker run --rm --name capybara_demo \
     -v `pwd`/demo:/capybara:rw \
+    -v /tmp/.X11-unix:/tmp/.X11-unix:ro \
     -e CALLER_UID=${CALLER_UID} \
     -e CALLER_GID=${CALLER_GID} \
     -e CAPYBARA_DRIVER=${DRIVER_NAME} \
